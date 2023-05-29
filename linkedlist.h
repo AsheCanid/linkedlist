@@ -1,6 +1,10 @@
 #include <string>
 #include <iostream>
 
+class link;
+
+   
+
 class link
 {
     
@@ -27,11 +31,11 @@ class link
         previous = p;
     }
     
-    void linkDelete(link ths) // Call this fucntion when deleting a link to automatically restructure list
+    void linkDelete() // Call this fucntion when deleting a link to automatically restructure list
     {
         if (previous != nullptr && next != nullptr)
         {
-            linkadjust(*previous, next);
+            linkadjust(previous, next);
             delete this;
         }
         else if (previous == nullptr && next != nullptr)
@@ -41,7 +45,7 @@ class link
         }
         else if (previous != nullptr && next == nullptr)
         {
-            linkadjust(*previous, nullptr);
+            linkadjust(previous, nullptr);
             delete this;
         }
         else
@@ -49,25 +53,33 @@ class link
             delete this;
         }
     }
-};
-
-    void linkadjust(link ths, link* p, link* n)
+    
+    void linkadjust(link* p, link* n)
     {
-        ths.next = n;
-        ths.previous= p;
+        next = n;
+        previous= p;
     }
-    void linkadjust(link ths, link* n)
+    void linkadjust( link* n)
     {
-        ths.next = n;
+        next = n;
     }
     void linkadjustp(link ths, link* p)
     {
         ths.previous = p;
     }
-    
+};    
 
 
 void editor(link tbe, std::string d, link* next, link* previous)
 {
     tbe.editor(d, next, previous);
 }
+void printLinks(link start)
+    {
+    if (start.next != nullptr)
+        {
+            std::cout << start.data << std::endl;
+            printLinks(*(start.next));
+        }
+    }
+
