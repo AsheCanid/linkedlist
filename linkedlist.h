@@ -9,6 +9,7 @@ struct link
     link* previous;
 }; 
 
+int size = sizeof(link);
 
 void editLink(link l, std::string data, link* n, link* p) // Adjust all data about the link
 {
@@ -65,16 +66,28 @@ void linkdelete(link l) // Deletes a link and adjusts the pointers of the next a
     }
 }
 
+// Dynamically allocated node functions
+
+link *newNodeAdd(std::string data)
+{
+
+    link* result = new link;
+    result->data = data;
+    result->next = NULL;
+    return result;
+
+}
+
 void printLinks(link start)
 {
-    if (start.next != NULL)
+    link *temp = &start;
+
+    while (temp->next != NULL)
     {
-    std::cout << start.data << " - ";
-    printLinks(*start.next);
+        std::cout << " - " << temp->data;
+        temp = temp->next;
     }
-    else
-    {
-        std::cout << start.data << "\n Print complete";
-    }
+    std::cout << '\n';
+    
 
 }
