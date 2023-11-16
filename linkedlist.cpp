@@ -105,7 +105,7 @@ class link
 		prev->next = newLink;
 		tail = newLink;
 	}
-	void deleteLink(int pos)
+	void deleteLinkByIndex(int pos)
 	{
 		link * prev =  nullptr;
 		link * thisLink = head;
@@ -128,6 +128,27 @@ class link
 			}
 		}
 		}
+	}
+	void deleteLinkByValue(int val)
+	{
+		link * prev = nullptr;
+		link * thisLink = head;
+		link * next = head->next;
+		int search = 0;
+		while(thisLink->next != nullptr && thisLink)
+		{
+			if (thisLink->data == search)
+			{
+				prev = thisLink->previous;
+				next = thisLink->next;
+				prev->next = next;
+				next->previous = prev;
+			}
+			else{
+				thisLink = thisLink->next;
+			}
+		}
+		std::cout << "No link with value " << val << " found";
 	}
 	
 	
