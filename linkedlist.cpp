@@ -97,9 +97,12 @@ class link
 	void newEndLink(int val) // Insert link at the end of the list
 	{
 		link * newLink;
+		link * prev;
+		prev = tail;
 		newLink = new link;
 		newLink->previous = tail;
 		newLink->data = val;
+		prev->next = newLink;
 		tail = newLink;
 	}
 	void deleteLink(int pos)
@@ -110,14 +113,10 @@ class link
 		for (int i = 0; i < pos; i++){
 		if (pos == 0){
 			head = head->next;
-			data = thisLink->data;
-			std::cout << "Link deleted with value: " << data;
 			free(thisLink);}
 		else{
 			if (i == pos - 1 && thisLink)
 			{
-				data = thisLink->data;
-				std::cout << "Link deleted with value: " << data;
 				prev->next = thisLink->next;
 				free(thisLink);
 			}
