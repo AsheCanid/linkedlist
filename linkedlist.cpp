@@ -36,7 +36,7 @@ class link
 	}
 	~link()
 	{
-		std::cout << "Link Deleted";
+		
 	}
 	void createLink(int data) // Creates linnks dynamically
 	{
@@ -106,13 +106,18 @@ class link
 	{
 		link * prev =  nullptr;
 		link * thisLink = head;
+		int val = 0;
 		for (int i = 0; i < pos; i++){
 		if (pos == 0){
 			head = head->next;
+			data = thisLink->data;
+			std::cout << "Link deleted with value: " << data;
 			free(thisLink);}
 		else{
 			if (i == pos - 1 && thisLink)
 			{
+				data = thisLink->data;
+				std::cout << "Link deleted with value: " << data;
 				prev->next = thisLink->next;
 				free(thisLink);
 			}
@@ -128,3 +133,4 @@ class link
 	
 	
 }; 
+
