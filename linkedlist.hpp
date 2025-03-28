@@ -289,6 +289,46 @@ void findNode(Node* head, char* val)
     return;
 }
 
+void findNodeReverse(Node* endNode, char* val, int listSize)
+{
+    Node* temp = endNode;
+    int pos = listSize;
+    while (temp->prev != nullptr && temp->data != val)
+    {
+        temp = temp->prev;
+        pos--;
+    }
+    if (temp->data == val)
+    {
+        std::cout << "Node with value " << val << " found at position " << pos << std::endl;
+    }
+    else
+    {
+        std::cout << "No node with value " << val << " found in list" << std::endl;
+    }
+    return;
+}
+
+int findNodeReverseRet(Node* endNode, char* val, int listSize)
+{
+    Node* temp = endNode;
+    int pos = listSize;
+    while (temp->prev != nullptr && temp->data != val)
+    {
+        temp = temp->prev;
+        pos--;
+    }
+    if (temp->data == val)
+    {
+        std::cout << "Node with value " << val << " found at position " << pos << std::endl;
+    }
+    else
+    {
+        std::cout << "No node with value " << val << " found in list" << std::endl;
+    }
+    return pos;
+}
+
 Node* getEnd(Node* head)
 {
     Node* endNode;
