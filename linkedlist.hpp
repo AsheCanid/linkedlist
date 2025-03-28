@@ -58,7 +58,7 @@ void newEnd(Node*& head, const char* val) // New final Node insertion
     newNode->prev = temp;
 }
 
-Node* newEndRet(Node*& head, const char* val) // New final Node insertion
+Node* newEndRet(Node*& head, const char* val) // New final Node insertion and returns its address
 {
     Node* newNode = new Node(val);
 
