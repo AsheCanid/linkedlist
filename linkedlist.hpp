@@ -399,6 +399,31 @@ void findNode(Node* head, char* val) // Find node by data value
     return;
 }
 
+void findNode(Node* head, int pos) // Find node value at position
+{
+    Node* temp = head;
+    const char* val;
+    if (pos < 1)
+    {
+        std::cout << "Position must be greater than 1" << std::endl;
+        return;
+    }
+    int i = 1;
+    while (i < pos && temp->next != nullptr)
+    {
+        temp = temp->next;
+        i++;
+    }
+    if (temp->next == nullptr && i < pos)
+    {
+        std::cout << "Position out of bounds" << std::endl;
+        return;
+    }
+    val = temp->data;
+    std::cout << "Node at position " << pos << " contains value " << val << std::endl;
+    return;
+}
+
 void findNodeReverse(Node* endNode, char* val, int listSize) // Find node by data value but starts searching from end of list
 {
     Node* temp = endNode;
