@@ -293,10 +293,32 @@ Node* getEnd(Node* head)
 {
     Node* endNode;
     Node* temp = head;
+    if (head == nullptr)
+    {
+        std::cout << "The list is empty" << std::endl;
+        return nullptr;
+    }
     while (temp->next != nullptr)
     {
         temp = temp->next;
     }
     endNode = temp;
     return endNode;
+}
+
+int getListSize(Node* head)
+{
+    int sizeList = 1;
+    if (head == nullptr)
+    {
+        std::cout << "The list is empty" << std::endl;
+        return 0;
+    }
+    Node* temp = head;
+    while (temp->next != nullptr)
+    {
+        temp = temp->next;
+        sizeList++;
+    }
+    return sizeList
 }
