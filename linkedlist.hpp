@@ -206,3 +206,19 @@ void printFromEnd(Node* head)
     std::cout << temp->data;
     std::cout << std::endl;
 }
+
+void editNode(Node* head, int pos, char* val)
+{
+    Node* temp = head;
+    if (pos < 1)
+    {
+        std::cout << "Position must >= 1" << std::endl;
+        return;
+    }
+    for (int i = 1; i < pos && (temp->next != nullptr); i++)
+    {
+        temp = temp->next;
+    }
+    temp->data = val;
+    return;
+}
