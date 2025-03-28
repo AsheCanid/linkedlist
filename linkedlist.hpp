@@ -54,7 +54,7 @@ void newEnd(Node*& head, const char* val) // New final Node insertion
 }
 
 
-void nodeAtPos(Node*& head, int pos, const char* val)
+void nodeAtPos(Node*& head, int pos, const char* val) // Index starts at 1
 {
     if (pos < 1)
     {
