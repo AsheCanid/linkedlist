@@ -205,6 +205,43 @@ void deleteAtPos(Node*& head, int pos)
     delete temp;
 }
 
+void deleteAtPosReverse(Node*& endNode, int pos, int listSize)
+{
+    if (endNode == nullptr)
+    {
+        std::cout << "Invalid or missing end node" << std::endl;
+        return;
+    }
+    if (pos = listSize)
+    {
+        deleteEndFast(endNode);
+        return;
+    }
+
+    int navigate = listSize - (listSize - pos);
+    Node* temp = endNode;
+
+    for (int i = 1; temp != nullptr && i < navigate; i++)
+    {
+        temp = temp->prev;
+    }
+    if (temp == nullptr)
+    {
+        std::cout << "Position out of bounds" << std::endl;
+        return;
+    }
+
+    if (temp->next != nullptr)
+    {
+        temp->next->prev = temp->prev;
+    }
+    if (temp->prev != nullptr)
+    {
+        temp->prev->next = temp->next;
+    }
+    delete temp;
+}
+
 void printFromHead(Node* head)
 {
     Node* temp = head;
