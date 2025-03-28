@@ -320,5 +320,5 @@ int getListSize(Node* head)
         temp = temp->next;
         sizeList++;
     }
-    return sizeList
+    return sizeList;
 }
