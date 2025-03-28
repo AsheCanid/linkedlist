@@ -5,3 +5,5 @@ Mostly a proof of concept for myself, any improvements/additions that are reccom
 This is still under development.
 
 I plan to implement type agnosticity at some point
+
+Main branch is stable with tested functions
