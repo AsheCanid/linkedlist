@@ -255,3 +255,23 @@ void editNode(Node* head, int pos, char* val)
     temp->data = val;
     return;
 }
+
+void findNode(Node* head, char* val)
+{
+    Node* temp = head;
+    int pos = 1;
+    while (temp->next != nullptr && temp->data != val)
+    {
+        temp = temp->next;
+        pos++;
+    }
+    if (temp->data == val)
+    {
+        std::cout << "Node with value " << val << " found at position " << pos << std::endl;
+    }
+    else
+    {
+        std::cout << "No node with value " << val << " found in list" << std::endl;
+    }
+    return;
+}
