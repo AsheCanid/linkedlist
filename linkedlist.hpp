@@ -9,6 +9,11 @@ class Node // Node def for a doubly linked list
     Node* prev; // Previous item in list
     const char* data; // String storage
     public:
+    Node()
+    {
+        this->next = nullptr;
+        this->prev = nullptr;
+    }
     Node(const char* data)
     {
         this->data = data;
@@ -53,7 +58,7 @@ void newEnd(Node*& head, const char* val) // New final Node insertion
     newNode->prev = temp;
 }
 
-Node* newEndret(Node*& head, const char* val) // New final Node insertion
+Node* newEndRet(Node*& head, const char* val) // New final Node insertion
 {
     Node* newNode = new Node(val);
 
@@ -111,7 +116,7 @@ void nodeAtPos(Node*& head, int pos, const char* val) // Index starts at 1
     temp->next = newNode;
 }
 
-void deleteHead(Node*& head)
+void deleteHead(Node*& head) // Deletes and reassigns starting node
 {
     if(head == nullptr)
     {
@@ -128,7 +133,7 @@ void deleteHead(Node*& head)
     delete temp;
 }
 
-void deleteEnd(Node*& head)
+void deleteEnd(Node*& head) // Deletes and reassigns final node
 {
     if (head == nullptr)
     {
@@ -154,7 +159,7 @@ void deleteEnd(Node*& head)
     delete temp;
 }
 
-void deleteEndFast(Node*& endNode)
+void deleteEndFast(Node*& endNode) // Same as delete end but directly accesses endnode
 {
     Node* temp = endNode;
     if (endNode == nullptr)
@@ -167,7 +172,7 @@ void deleteEndFast(Node*& endNode)
     return;
 }
 
-void deleteAtPos(Node*& head, int pos)
+void deleteAtPos(Node*& head, int pos) // Deletes at given position
 {
     if (head == nullptr)
     {
@@ -205,7 +210,7 @@ void deleteAtPos(Node*& head, int pos)
     delete temp;
 }
 
-void deleteAtPosReverse(Node*& endNode, int pos, int listSize)
+void deleteAtPosReverse(Node*& endNode, int pos, int listSize) // Deletes at position but indexes from final position
 {
     if (endNode == nullptr)
     {
@@ -242,7 +247,7 @@ void deleteAtPosReverse(Node*& endNode, int pos, int listSize)
     delete temp;
 }
 
-void printFromHead(Node* head)
+void printFromHead(Node* head) // Prints from starting node
 {
     Node* temp = head;
     std::cout << "List forward: ";
@@ -255,7 +260,7 @@ void printFromHead(Node* head)
     std::cout << std::endl;
 }
 
-void printFromEnd(Node* head)
+void printFromEnd(Node* head) // Iterates through list and then prints in reverse
 {
     Node* temp = head;
     if (temp == nullptr)
@@ -277,7 +282,7 @@ void printFromEnd(Node* head)
     std::cout << std::endl;
 }
 
-void printFromEndFast(Node* endNode)
+void printFromEndFast(Node* endNode) // Prints from reverse from end node directly
 {
     Node* temp = endNode;
     std::cout << "List reverse: ";
@@ -290,117 +295,7 @@ void printFromEndFast(Node* endNode)
     std::cout << std::endl;
 }
 
-void editNode(Node* head, int pos, char* val)
-{
-    Node* temp = head;
-    if (pos < 1)
-    {
-        std::cout << "Position must >= 1" << std::endl;
-        return;
-    }
-    for (int i = 1; i < pos && (temp->next != nullptr); i++)
-    {
-        temp = temp->next;
-    }
-    temp->data = val;
-    return;
-}
-
-void findNode(Node* head, char* val)
-{
-    Node* temp = head;
-    int pos = 1;
-    while (temp->next != nullptr && temp->data != val)
-    {
-        temp = temp->next;
-        pos++;
-    }
-    if (temp->data == val)
-    {
-        std::cout << "Node with value " << val << " found at position " << pos << std::endl;
-    }
-    else
-    {
-        std::cout << "No node with value " << val << " found in list" << std::endl;
-    }
-    return;
-}
-
-void findNodeReverse(Node* endNode, char* val, int listSize)
-{
-    Node* temp = endNode;
-    int pos = listSize;
-    while (temp->prev != nullptr && temp->data != val)
-    {
-        temp = temp->prev;
-        pos--;
-    }
-    if (temp->data == val)
-    {
-        std::cout << "Node with value " << val << " found at position " << pos << std::endl;
-    }
-    else
-    {
-        std::cout << "No node with value " << val << " found in list" << std::endl;
-    }
-    return;
-}
-
-int findNodeReverseRet(Node* endNode, char* val, int listSize)
-{
-    Node* temp = endNode;
-    int pos = listSize;
-    while (temp->prev != nullptr && temp->data != val)
-    {
-        temp = temp->prev;
-        pos--;
-    }
-    if (temp->data == val)
-    {
-        std::cout << "Node with value " << val << " found at position " << pos << std::endl;
-    }
-    else
-    {
-        std::cout << "No node with value " << val << " found in list" << std::endl;
-    }
-    return pos;
-}
-
-Node* getEnd(Node* head)
-{
-    Node* endNode;
-    Node* temp = head;
-    if (head == nullptr)
-    {
-        std::cout << "The list is empty" << std::endl;
-        return nullptr;
-    }
-    while (temp->next != nullptr)
-    {
-        temp = temp->next;
-    }
-    endNode = temp;
-    return endNode;
-}
-
-int getListSize(Node* head)
-{
-    int sizeList = 1;
-    if (head == nullptr)
-    {
-        std::cout << "The list is empty" << std::endl;
-        return 0;
-    }
-    Node* temp = head;
-    while (temp->next != nullptr)
-    {
-        temp = temp->next;
-        sizeList++;
-    }
-    return sizeList;
-}
-
-void swapNode(Node* head, int swapPos1, int swapPos2)
+void swapNode(Node* head, int swapPos1, int swapPos2) // Swaps data from 2 given nodes via position
 {
     Node* temp = head;
     const char* data1;
@@ -466,4 +361,134 @@ void swapNode(Node* head, int swapPos1, int swapPos2)
         return;
     }
     return;
+}
+
+void editNode(Node* head, int pos, char* val) // Changes data of node at position
+{
+    Node* temp = head;
+    if (pos < 1)
+    {
+        std::cout << "Position must >= 1" << std::endl;
+        return;
+    }
+    for (int i = 1; i < pos && (temp->next != nullptr); i++)
+    {
+        temp = temp->next;
+    }
+    temp->data = val;
+    return;
+}
+
+void findNode(Node* head, char* val) // Find node by data value
+{
+    Node* temp = head;
+    int pos = 1;
+    while (temp->next != nullptr && temp->data != val)
+    {
+        temp = temp->next;
+        pos++;
+    }
+    if (temp->data == val)
+    {
+        std::cout << "Node with value " << val << " found at position " << pos << std::endl;
+    }
+    else
+    {
+        std::cout << "No node with value " << val << " found in list" << std::endl;
+    }
+    return;
+}
+
+void findNodeReverse(Node* endNode, char* val, int listSize) // Find node by data value but starts searching from end of list
+{
+    Node* temp = endNode;
+    int pos = listSize;
+    while (temp->prev != nullptr && temp->data != val)
+    {
+        temp = temp->prev;
+        pos--;
+    }
+    if (temp->data == val)
+    {
+        std::cout << "Node with value " << val << " found at position " << pos << std::endl;
+    }
+    else
+    {
+        std::cout << "No node with value " << val << " found in list" << std::endl;
+    }
+    return;
+}
+
+int findNodeReverseRet(Node* endNode, char* val, int listSize) // Find node by data value but starts searching from end of list and return its position as int
+{
+    Node* temp = endNode;
+    int pos = listSize;
+    while (temp->prev != nullptr && temp->data != val)
+    {
+        temp = temp->prev;
+        pos--;
+    }
+    if (temp->data == val)
+    {
+        std::cout << "Node with value " << val << " found at position " << pos << std::endl;
+    }
+    else
+    {
+        std::cout << "No node with value " << val << " found in list" << std::endl;
+    }
+    return pos;
+}
+
+int findNodeRet(Node* head, char* val) // Find node by data value and return position as int
+{
+    Node* temp = head;
+    int pos = 1;
+    while (temp->next != nullptr && temp->data != val)
+    {
+        temp = temp->next;
+        pos++;
+    }
+    if (temp->data == val)
+    {
+        std::cout << "Node with value " << val << " found at position " << pos << std::endl;
+    }
+    else
+    {
+        std::cout << "No node with value " << val << " found in list" << std::endl;
+    }
+    return pos;
+}
+
+Node* getEnd(Node* head) // Finds end node and returns its address
+{
+    Node* endNode;
+    Node* temp = head;
+    if (head == nullptr)
+    {
+        std::cout << "The list is empty" << std::endl;
+        return nullptr;
+    }
+    while (temp->next != nullptr)
+    {
+        temp = temp->next;
+    }
+    endNode = temp;
+    return endNode;
+}
+
+int getListSize(Node* head) // Iterates through and returns list size
+{
+    int sizeList = 1;
+    if (head == nullptr)
+    {
+        std::cout << "The list is empty" << std::endl;
+        return 0;
+    }
+    Node* temp = head;
+    while (temp->next != nullptr)
+    {
+        temp = temp->next;
+        sizeList++;
+    }
+    return sizeList;
 }
