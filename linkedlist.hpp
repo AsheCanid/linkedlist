@@ -399,3 +399,71 @@ int getListSize(Node* head)
     }
     return sizeList;
 }
+
+void swapNode(Node* head, int swapPos1, int swapPos2)
+{
+    Node* temp = head;
+    const char* data1;
+    const char* data2;
+
+    if (swapPos1 == swapPos2)
+    {
+        std::cout << "Nothing to swap" << std::endl;
+    }
+
+    if (swapPos1 > swapPos2)
+    {
+        int i = 1;
+        for (i; i < swapPos2 && temp->next != nullptr; i++)
+        {
+            temp = temp->next;
+        }
+        data2 = temp->data;
+        for (i; i < swapPos1 && temp->next != nullptr; i++)
+        {
+            temp = temp->next;
+        }
+        data1 = temp->data;
+        temp = head;
+        i = 1;
+        for (i; i < swapPos2 && temp->next != nullptr; i++)
+        {
+            temp = temp->next;
+        }
+        temp->data = data1;
+        for (i; i < swapPos1 && temp->next != nullptr; i++)
+        {
+            temp = temp->next;
+        }
+        temp->data = data2;
+        return;
+    }
+    else
+    {
+        int i = 1;
+        for (i; i < swapPos1 && temp->next != nullptr; i++)
+        {
+            temp = temp->next;
+        }
+        data1 = temp->data;
+        for (i; i < swapPos2 && temp->next != nullptr; i++)
+        {
+            temp = temp->next;
+        }
+        data2 = temp->data;
+        temp = head;
+        i = 1;
+        for (i; i < swapPos1 && temp->next != nullptr; i++)
+        {
+            temp = temp->next;
+        }
+        temp->data = data2;
+        for (i; i < swapPos2 && temp->next != nullptr; i++)
+        {
+            temp = temp->next;
+        }
+        temp->data = data1;
+        return;
+    }
+    return;
+}
