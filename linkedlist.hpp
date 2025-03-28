@@ -1,9 +1,8 @@
 #include <iostream>
 #include <string>
 
-// #define NODEMAKE(val) (Node* newNode = new Node(val)) // Macro to create Node object with name newNode and value val
 
-class Node // node def for a doubly linked list
+class Node // Node def for a doubly linked list
 {
     public:
     Node* next; // Next item in list
@@ -18,54 +17,29 @@ class Node // node def for a doubly linked list
     }
 };
 
-void newHead(Node*& head, const char* val) // New starting node insertion
+void newHead(Node*& head, const char* val) // New starting Node insertion
 {
     Node* newNode = new Node(val);
 
     if (head == nullptr)
     {
         head = newNode;
-        std::cout << "new head w/ value" << val << std::endl;
         return;
     }
 
     newNode->next = head;
     head->prev = newNode;
-    head = newNode; // redef new node as start node
-    std::cout <<"new head w/ value " << val << std::endl;
+    head = newNode; // redef new Node as start Node
 }
 
-void newEnd(Node*& head, const char* val) // New final node insertion
+
+void newEnd(Node*& head, const char* val) // New final Node insertion
 {
     Node* newNode = new Node(val);
 
     if (head == nullptr)
     {
         head = newNode;
-        std::cout <<"new head (end func) with value" << val << std::endl;
-        return;
-    }
-
-    Node* temp = head;
-    while (temp->next != nullptr)
-    {
-        temp = temp->next;
-    }
-
-    temp->next = newNode;
-    newNode->prev = temp;
-    std::cout <<"new end with value " << val << std::endl;
-}
-
-
-/*
-void newEnd(Node*& head, const char* val) // New final node insertion
-{
-    NODEMAKE(val);
-
-    if (head == nullptr)
-    {
-        head = newNode;
         return;
     }
 
@@ -78,7 +52,7 @@ void newEnd(Node*& head, const char* val) // New final node insertion
     temp->next = newNode;
     newNode->prev = temp;
 }
-*/
+
 
 void nodeAtPos(Node*& head, int pos, const char* val)
 {
@@ -99,7 +73,6 @@ void nodeAtPos(Node*& head, int pos, const char* val)
 
     for (int i = 1; temp != nullptr && i < pos - 1; i++)
     {
-        std::cout <<"at pos " << i << " prev val " << temp->prev->data << " next val " << temp->next->data << std::endl;
         temp = temp->next;
     }
 
@@ -116,7 +89,6 @@ void nodeAtPos(Node*& head, int pos, const char* val)
         temp->next->prev = newNode;
     }
     temp->next = newNode;
-    std::cout <<"final location reached, prev " << temp->prev << " next " << temp->next << " val " << val << std::endl;
 }
 
 void deleteHead(Node*& head)
@@ -128,14 +100,12 @@ void deleteHead(Node*& head)
     }
 
     Node* temp = head;
-    std::cout << "current head with val " << temp->data << "/" << head->data << std::endl;
     head = head->next;
     if (head != nullptr)
     {
         head->prev = nullptr;
     }
     delete temp;
-    std::cout <<"new head with val " << head->data << std::endl;
 }
 
 void deleteEnd(Node*& head)
@@ -206,15 +176,12 @@ void printFromHead(Node* head)
 {
     Node* temp = head;
     std::cout << "List forward: ";
-    if (temp->next == nullptr && temp->data)
-    {
-        std::cout << temp->data;
-    }
     while (temp->next != nullptr)
     {
         std::cout << temp->data << " ";
         temp = temp->next;
     }
+    std::cout << temp->data;
     std::cout << std::endl;
 }
 
@@ -231,14 +198,11 @@ void printFromEnd(Node* head)
     }
 
     std::cout << "Reversed List: ";
-    if (temp->prev == nullptr && temp->data)
-    {
-        std::cout << temp->data;
-    }
     while (temp->prev != nullptr)
     {
         std::cout << temp->data << " ";
         temp = temp->prev;
     }
+    std::cout << temp->data;
     std::cout << std::endl;
 }
