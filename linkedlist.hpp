@@ -227,6 +227,19 @@ void printFromEnd(Node* head)
     std::cout << std::endl;
 }
 
+void printFromEndFast(Node* endNode)
+{
+    Node* temp = endNode;
+    std::cout << "List reverse: ";
+    while (temp->prev != nullptr)
+    {
+        std::cout << temp->data << " ";
+        temp = temp->prev;
+    }
+    std::cout << temp->data;
+    std::cout << std::endl;
+}
+
 void editNode(Node* head, int pos, char* val)
 {
     Node* temp = head;
