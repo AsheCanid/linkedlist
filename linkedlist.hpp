@@ -154,6 +154,19 @@ void deleteEnd(Node*& head)
     delete temp;
 }
 
+void deleteEndFast(Node*& endNode)
+{
+    Node* temp = endNode;
+    if (endNode == nullptr)
+    {
+        std::cout << "The list is already empty" << std::endl;
+        return;
+    }
+    temp->prev->next = nullptr;
+    delete temp;
+    return;
+}
+
 void deleteAtPos(Node*& head, int pos)
 {
     if (head == nullptr)
