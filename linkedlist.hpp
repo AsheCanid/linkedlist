@@ -53,6 +53,26 @@ void newEnd(Node*& head, const char* val) // New final Node insertion
     newNode->prev = temp;
 }
 
+Node* newEndret(Node*& head, const char* val) // New final Node insertion
+{
+    Node* newNode = new Node(val);
+
+    if (head == nullptr)
+    {
+        head = newNode;
+        return newNode;
+    }
+
+    Node* temp = head;
+    while (temp->next != nullptr)
+    {
+        temp = temp->next;
+    }
+
+    temp->next = newNode;
+    newNode->prev = temp;
+    return newNode;
+}
 
 void nodeAtPos(Node*& head, int pos, const char* val) // Index starts at 1
 {
