@@ -275,3 +275,15 @@ void findNode(Node* head, char* val)
     }
     return;
 }
+
+Node* getEnd(Node* head)
+{
+    Node* endNode;
+    Node* temp = head;
+    while (temp->next != nullptr)
+    {
+        temp = temp->next;
+    }
+    endNode = temp;
+    return endNode;
+}
