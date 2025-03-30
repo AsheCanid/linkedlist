@@ -4,15 +4,16 @@
 
 class Node // Node def for a doubly linked list
 {
-    public:
+public:
     Node* next; // Next item in list
     Node* prev; // Previous item in list
     const char* data; // String storage
-    public:
+public:
     Node()
     {
         this->next = nullptr;
         this->prev = nullptr;
+        this->data = "";
     }
     Node(const char* data)
     {
@@ -118,7 +119,7 @@ void nodeAtPos(Node*& head, int pos, const char* val) // Index starts at 1
 
 void deleteHead(Node*& head) // Deletes and reassigns starting node
 {
-    if(head == nullptr)
+    if (head == nullptr)
     {
         std::cout << "List already empty" << std::endl;
         return;
@@ -298,77 +299,43 @@ void printFromEndFast(Node* endNode) // Prints from reverse from end node direct
 void swapNode(Node* head, int swapPos1, int swapPos2) // Swaps data from 2 given nodes via position
 {
     Node* temp = head;
+    Node* temp2 = head;
     const char* data1;
     const char* data2;
 
+    if (boundsCheck(head, swapPos1) == false || boundsCheck(head, swapPos2) == false)
+    {
+        return;
+    }
+    
     if (swapPos1 == swapPos2)
     {
         std::cout << "Nothing to swap" << std::endl;
     }
 
-    if (swapPos1 > swapPos2)
+    int i = 1;
+    for (i; i < swapPos1 && temp->next != nullptr; i++)
     {
-        int i = 1;
-        for (i; i < swapPos2 && temp->next != nullptr; i++)
-        {
-            temp = temp->next;
-        }
-        data2 = temp->data;
-        for (i; i < swapPos1 && temp->next != nullptr; i++)
-        {
-            temp = temp->next;
-        }
-        data1 = temp->data;
-        temp = head;
-        i = 1;
-        for (i; i < swapPos2 && temp->next != nullptr; i++)
-        {
-            temp = temp->next;
-        }
-        temp->data = data1;
-        for (i; i < swapPos1 && temp->next != nullptr; i++)
-        {
-            temp = temp->next;
-        }
-        temp->data = data2;
-        return;
+        temp = temp->next;
     }
-    else
+    data1 = temp->data;
+    i = 1;
+    for (i; i < swapPos2 && temp2->next != nullptr; i++)
     {
-        int i = 1;
-        for (i; i < swapPos1 && temp->next != nullptr; i++)
-        {
-            temp = temp->next;
-        }
-        data1 = temp->data;
-        for (i; i < swapPos2 && temp->next != nullptr; i++)
-        {
-            temp = temp->next;
-        }
-        data2 = temp->data;
-        temp = head;
-        i = 1;
-        for (i; i < swapPos1 && temp->next != nullptr; i++)
-        {
-            temp = temp->next;
-        }
-        temp->data = data2;
-        for (i; i < swapPos2 && temp->next != nullptr; i++)
-        {
-            temp = temp->next;
-        }
-        temp->data = data1;
-        return;
+        temp2 = temp2->next;
     }
+    data2 = temp2->data;
+
+    temp->data = data2;
+    temp2->data = data1;
     return;
 }
 
 void editNode(Node* head, int pos, char* val) // Changes data of node at position
 {
     Node* temp = head;
-    if (pos < 1)
+    if (boundsCheck(head, pos) == false)
     {
-        std::cout << "Position must >= 1" << std::endl;
         return;
     }
     for (int i = 1; i < pos && (temp->next != nullptr); i++)
@@ -403,9 +370,8 @@ void findNode(Node* head, int pos) // Find node value at position
 {
     Node* temp = head;
     const char* val;
-    if (pos < 1)
+    if (boundsCheck(head, pos) == false)
     {
-        std::cout << "Position must be greater than 1" << std::endl;
         return;
     }
     int i = 1;
@@ -413,11 +379,6 @@ void findNode(Node* head, int pos) // Find node value at position
     {
         temp = temp->next;
         i++;
-    }
-    if (temp->next == nullptr && i < pos)
-    {
-        std::cout << "Position out of bounds" << std::endl;
-        return;
     }
     val = temp->data;
     std::cout << "Node at position " << pos << " contains value " << val << std::endl;
@@ -521,7 +482,12 @@ int getListSize(Node* head) // Iterates through and returns list size
 bool boundsCheck(Node* head, int inputPos) // Checks if given index is within the bounds of the list
 {
     int bound = getListSize(head);
-    if (inputPos > bound || inputPos < 0)
+    if (inputPos < 0)
+    {
+        std::cout << "Position must be greater than 0\n";
+        return false;
+    }
+    if (inputPos > bound)
     {
         std::cout << "Position out of bounds" << std::endl;
         return false;
@@ -534,7 +500,12 @@ bool boundsCheck(Node* head, int inputPos) // Checks if given index is within th
 
 bool boundsCheck(int listSize, int inputPos) // Checks if given index is within the bounds of the list without indexing entire list
 {
-    if (inputPos > listSize || inputPos < 0)
+    if (inputPos < 0)
+    {
+        std::cout << "Position must be greater than 0\n";
+        return false;
+    }
+    if (inputPos > listSize)
     {
         std::cout << "Position out of bounds" << std::endl;
         return false;
