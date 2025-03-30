@@ -337,7 +337,7 @@ void printFromEndFast(Node* endNode) // Prints from reverse from end node direct
 
 void printFullNodeInfo(Node* node)
 {
-    std::cout << "Previous Node Address: " << node->prev << "    Node Data: " << node->data << "    Current Node Address" << &node << "    Next Node Address: " << node->next << std::endl;
+    std::cout << "Previous Node Address: " << node->prev << "    Node Data: " << node->data << "    Current Node Address: " << &node << "    Next Node Address: " << node->next << std::endl;
 }
 
 void printNode(Node* head, int pos) // Print node value at position
