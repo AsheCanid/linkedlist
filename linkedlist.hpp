@@ -9,7 +9,6 @@ public:
     Node* next; // Next item in list
     Node* prev; // Previous item in list
     const char* data; // String storage
-public:
     Node()
     {
         this->next = nullptr;
