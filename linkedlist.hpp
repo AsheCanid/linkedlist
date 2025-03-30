@@ -29,7 +29,7 @@ public:
 void newHead(Node*& head, const char* val);
 void newEnd(Node*& head, const char* val);
 Node* newEndRet(Node*& head, const char* val);
-void insertNodeAtPos(Node*& head, int pos, const char* val);
+void newNodeAtPos(Node*& head, int pos, const char* val);
 
 // Node deletion functions declartation
 void deleteHead(Node*& head);
@@ -54,6 +54,7 @@ int getListSize(Node* head);
 bool boundsCheck(Node* head, int inputPos);
 bool boundsCheck(int listSize, int inputPos);
 void editNode(Node* head, int pos, const char* val);
+void swapNode(Node* head, int swapPos1, int swapPos2);
 
 
 void newHead(Node*& head, const char* val) // New starting Node insertion
@@ -113,7 +114,7 @@ Node* newEndRet(Node*& head, const char* val) // New final Node insertion and re
     return newNode;
 }
 
-void insertNodeAtPos(Node*& head, int pos, const char* val) // Index starts at 1
+void newNodeAtPos(Node*& head, int pos, const char* val) // Index starts at 1
 {
     if (pos < 1)
     {
