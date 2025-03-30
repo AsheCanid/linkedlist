@@ -517,3 +517,30 @@ int getListSize(Node* head) // Iterates through and returns list size
     }
     return sizeList;
 }
+
+bool boundsCheck(Node* head, int inputPos) // Checks if given index is within the bounds of the list
+{
+    int bound = getListSize(head);
+    if (inputPos > bound || inputPos < 0)
+    {
+        std::cout << "Position out of bounds" << std::endl;
+        return false;
+    }
+    else
+    {
+        return true;
+    }
+}
+
+bool boundsCheck(int listSize, int inputPos) // Checks if given index is within the bounds of the list without indexing entire list
+{
+    if (inputPos > listSize || inputPos < 0)
+    {
+        std::cout << "Position out of bounds" << std::endl;
+        return false;
+    }
+    else
+    {
+        return true;
+    }
+}
