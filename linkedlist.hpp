@@ -55,6 +55,12 @@ bool boundsCheck(int listSize, int inputPos);
 void editNode(Node* head, int pos, const char* val);
 void swapNode(Node* head, int swapPos1, int swapPos2);
 
+// Display Functions
+void printFromHead(Node* head);
+void printFromEnd(Node* head);
+void printFromEndFast(Node* endNode);
+void printNode(Node* head, int pos);
+void printFullNodeInfo(Node* node);
 
 void newHead(Node*& head, const char* val) // New starting Node insertion
 {
@@ -327,6 +333,30 @@ void printFromEndFast(Node* endNode) // Prints from reverse from end node direct
     }
     std::cout << temp->data;
     std::cout << std::endl;
+}
+
+void printFullNodeInfo(Node* node)
+{
+    std::cout << "Previous Node Address: " << node->prev << "    Node Data: " << node->data << "    Current Node Address" << &node << "    Next Node Address: " << node->next << std::endl;
+}
+
+void printNode(Node* head, int pos) // Print node value at position
+{
+    Node* temp = head;
+    const char* val;
+    if (boundsCheck(head, pos) == false)
+    {
+        return;
+    }
+    int i = 1;
+    while (i < pos && temp->next != nullptr)
+    {
+        temp = temp->next;
+        i++;
+    }
+    val = temp->data;
+    std::cout << "Node at position " << pos << " contains value " << val << std::endl;
+    return;
 }
 
 void swapNode(Node* head, int swapPos1, int swapPos2) // Swaps data from 2 given nodes via position
