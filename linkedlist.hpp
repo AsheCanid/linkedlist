@@ -2,6 +2,7 @@
 #include <string>
 
 
+//Class Declaration + Definition
 class Node // Node def for a doubly linked list
 {
 public:
@@ -22,6 +23,38 @@ public:
         this->prev = nullptr;
     }
 };
+
+
+// Node creation function declarations
+void newHead(Node*& head, const char* val);
+void newEnd(Node*& head, const char* val);
+Node* newEndRet(Node*& head, const char* val);
+void insertNodeAtPos(Node*& head, int pos, const char* val);
+
+// Node deletion functions declartation
+void deleteHead(Node*& head);
+void deleteEnd(Node*& head);
+void deleteEndFast(Node*& endNode);
+void deleteAtPos(Node*& head, int pos);
+void deleteAtPosReverse(Node*& endNode, int pos, int listSize);
+
+// Node location functions declaration
+void findNode(Node* head, const char* val);
+void findNode(Node* head, int pos);
+int findNodeRet(Node* head, const char* val);
+void findNodeReverse(Node* endNode, const char* val, int listSize);
+const char* findNodeDataRet(Node* head, int pos);
+int findNodePosRet(Node* head, const char* val);
+void findNodeReverse(Node* endNode, const char* val, int listSize);
+int findNodeReverseRet(Node* endNode, const char* val, int listSize);
+Node* getEnd(Node* head);
+
+// Utility functions declaration
+int getListSize(Node* head);
+bool boundsCheck(Node* head, int inputPos);
+bool boundsCheck(int listSize, int inputPos);
+void editNode(Node* head, int pos, const char* val);
+
 
 void newHead(Node*& head, const char* val) // New starting Node insertion
 {
@@ -80,7 +113,7 @@ Node* newEndRet(Node*& head, const char* val) // New final Node insertion and re
     return newNode;
 }
 
-void nodeAtPos(Node*& head, int pos, const char* val) // Index starts at 1
+void insertNodeAtPos(Node*& head, int pos, const char* val) // Index starts at 1
 {
     if (pos < 1)
     {
@@ -298,8 +331,6 @@ void printFromEndFast(Node* endNode) // Prints from reverse from end node direct
 
 void swapNode(Node* head, int swapPos1, int swapPos2) // Swaps data from 2 given nodes via position
 {
-    Node* temp = head;
-    Node* temp2 = head;
     const char* data1;
     const char* data2;
 
@@ -308,36 +339,24 @@ void swapNode(Node* head, int swapPos1, int swapPos2) // Swaps data from 2 given
         return;
     }
     
-    if (swapPos1 == swapPos2)
-    {
-        std::cout << "Nothing to swap" << std::endl;
-    }
+    data1 = findNodeDataRet(head, swapPos1);
+    data2 = findNodeDataRet(head, swapPos2);
 
-    int i = 1;
-    for (i; i < swapPos1 && temp->next != nullptr; i++)
-    {
-        temp = temp->next;
-    }
-    data1 = temp->data;
-    i = 1;
-    for (i; i < swapPos2 && temp2->next != nullptr; i++)
-    {
-        temp2 = temp2->next;
-    }
-    data2 = temp2->data;
+    std::cout << data1 << ' ' << data2 << '\n';
 
-    temp->data = data2;
-    temp2->data = data1;
+    editNode(head, swapPos1, data2);
+    editNode(head, swapPos2, data1);
+
     return;
 }
 
-void editNode(Node* head, int pos, char* val) // Changes data of node at position
+void editNode(Node* head, int pos, const char* val) // Changes data of node at position
 {
-    Node* temp = head;
     if (boundsCheck(head, pos) == false)
     {
         return;
     }
+    Node* temp = head;
     for (int i = 1; i < pos && (temp->next != nullptr); i++)
     {
         temp = temp->next;
@@ -346,7 +365,7 @@ void editNode(Node* head, int pos, char* val) // Changes data of node at positio
     return;
 }
 
-void findNode(Node* head, char* val) // Find node by data value
+void findNode(Node* head, const char* val) // Find node by data value
 {
     Node* temp = head;
     int pos = 1;
@@ -385,7 +404,45 @@ void findNode(Node* head, int pos) // Find node value at position
     return;
 }
 
-void findNodeReverse(Node* endNode, char* val, int listSize) // Find node by data value but starts searching from end of list
+const char* findNodeDataRet(Node* head, int pos) // Find node value at position and returns value
+{
+    Node* temp = head;
+    const char* val;
+    if (boundsCheck(head, pos) == false)
+    {
+        return NULL;
+    }
+    int i = 1;
+    while (i < pos && temp->next != nullptr)
+    {
+        temp = temp->next;
+        i++;
+    }
+    val = temp->data;
+    return val;
+}
+
+int findNodePosRet(Node* head, const char* val) // Find node by data value and returns position
+{
+    Node* temp = head;
+    int pos = 1;
+    while (temp->next != nullptr && temp->data != val)
+    {
+        temp = temp->next;
+        pos++;
+    }
+    if (temp->data == val)
+    {
+        return pos;
+    }
+    else
+    {
+        std::cout << "No node with value " << val << " found in list" << std::endl;
+    }
+    return NULL;
+}
+
+void findNodeReverse(Node* endNode, const char* val, int listSize) // Find node by data value but starts searching from end of list
 {
     Node* temp = endNode;
     int pos = listSize;
@@ -405,7 +462,7 @@ void findNodeReverse(Node* endNode, char* val, int listSize) // Find node by dat
     return;
 }
 
-int findNodeReverseRet(Node* endNode, char* val, int listSize) // Find node by data value but starts searching from end of list and return its position as int
+int findNodeReverseRet(Node* endNode, const char* val, int listSize) // Find node by data value but starts searching from end of list and return its position as int
 {
     Node* temp = endNode;
     int pos = listSize;
@@ -425,7 +482,7 @@ int findNodeReverseRet(Node* endNode, char* val, int listSize) // Find node by d
     return pos;
 }
 
-int findNodeRet(Node* head, char* val) // Find node by data value and return position as int
+int findNodeRet(Node* head, const char* val) // Find node by data value and return position as int
 {
     Node* temp = head;
     int pos = 1;
