@@ -1,10 +1,12 @@
 #include <iostream>
 #include <string>
 
-
 //Class Declaration + Definition
 class Node // Node def for a doubly linked list
 {
+private:
+    static int listSize;
+
 public:
     Node* next; // Next item in list
     Node* prev; // Previous item in list
@@ -14,14 +16,28 @@ public:
         this->next = nullptr;
         this->prev = nullptr;
         this->data = "";
+        listSize++;
     }
     Node(const char* data)
     {
         this->data = data;
         this->next = nullptr;
         this->prev = nullptr;
+        listSize++;
     }
+    ~Node()
+    {
+        listSize--;
+    }
+    int getSize()
+    {
+        return listSize;
+    }
+
+
 };
+
+int Node::listSize; // Compiler error fix
 
 
 // Node creation function declarations
@@ -35,33 +51,31 @@ void deleteHead(Node*& head);
 void deleteEnd(Node*& head);
 void deleteEndFast(Node*& endNode);
 void deleteAtPos(Node*& head, int pos);
-void deleteAtPosReverse(Node*& endNode, int pos, int listSize);
+void deleteAtPosReverse(Node*& endNode, int pos);
 
 // Node location functions declaration
 void findNode(Node* head, const char* val);
 void findNode(Node* head, int pos);
 int findNodeRet(Node* head, const char* val);
-void findNodeReverse(Node* endNode, const char* val, int listSize);
+void findNodeReverse(Node* endNode, const char* val);
 const char* findNodeDataRet(Node* head, int pos);
 int findNodePosRet(Node* head, const char* val);
-void findNodeReverse(Node* endNode, const char* val, int listSize);
-int findNodeReverseRet(Node* endNode, const char* val, int listSize);
-Node* getEnd(Node* head);
+void findNodeReverse(Node* endNode, const char* val);
+int findNodeReverseRet(Node* endNode, const char* val);
 
 // Utility functions declaration
-int getListSize(Node* head);
+Node* getEnd(Node* head);
 bool boundsCheck(Node* head, int inputPos);
-bool boundsCheck(int listSize, int inputPos);
 void editNode(Node* head, int pos, const char* val);
 void swapNode(Node* head, int swapPos1, int swapPos2);
 
-// Display Functions
+
+// Display functions
 void printFromHead(Node* head);
 void printFromEnd(Node* head);
 void printFromEndFast(Node* endNode);
 void printNode(Node* head, int pos);
 void printFullNodeInfo(Node* node);
-
 void newHead(Node*& head, const char* val) // New starting Node insertion
 {
     Node* newNode = new Node(val);
@@ -250,20 +264,21 @@ void deleteAtPos(Node*& head, int pos) // Deletes at given position
     delete temp;
 }
 
-void deleteAtPosReverse(Node*& endNode, int pos, int listSize) // Deletes at position but indexes from final position
+void deleteAtPosReverse(Node*& endNode, int pos) // Deletes at position but indexes from final position
 {
+    int lSize = endNode->getSize();
     if (endNode == nullptr)
     {
         std::cout << "Invalid or missing end node" << std::endl;
         return;
     }
-    if (pos = listSize)
+    if (pos = lSize)
     {
         deleteEndFast(endNode);
         return;
     }
 
-    int navigate = listSize - (listSize - pos);
+    int navigate = lSize - (lSize - pos);
     Node* temp = endNode;
 
     for (int i = 1; temp != nullptr && i < navigate; i++)
@@ -472,10 +487,10 @@ int findNodePosRet(Node* head, const char* val) // Find node by data value and r
     return NULL;
 }
 
-void findNodeReverse(Node* endNode, const char* val, int listSize) // Find node by data value but starts searching from end of list
+void findNodeReverse(Node* endNode, const char* val) // Find node by data value but starts searching from end of list
 {
     Node* temp = endNode;
-    int pos = listSize;
+    int pos = endNode->getSize();
     while (temp->prev != nullptr && temp->data != val)
     {
         temp = temp->prev;
@@ -492,10 +507,10 @@ void findNodeReverse(Node* endNode, const char* val, int listSize) // Find node 
     return;
 }
 
-int findNodeReverseRet(Node* endNode, const char* val, int listSize) // Find node by data value but starts searching from end of list and return its position as int
+int findNodeReverseRet(Node* endNode, const char* val) // Find node by data value but starts searching from end of list and return its position as int
 {
     Node* temp = endNode;
-    int pos = listSize;
+    int pos = endNode->getSize();
     while (temp->prev != nullptr && temp->data != val)
     {
         temp = temp->prev;
@@ -551,48 +566,18 @@ Node* getEnd(Node* head) // Finds end node and returns its address
 
 int getListSize(Node* head) // Iterates through and returns list size
 {
-    int sizeList = 1;
-    if (head == nullptr)
-    {
-        std::cout << "The list is empty" << std::endl;
-        return 0;
-    }
-    Node* temp = head;
-    while (temp->next != nullptr)
-    {
-        temp = temp->next;
-        sizeList++;
-    }
-    return sizeList;
+    return head->getSize();
 }
 
 bool boundsCheck(Node* head, int inputPos) // Checks if given index is within the bounds of the list
 {
-    int bound = getListSize(head);
+    int bound = head->getSize();
     if (inputPos < 0)
     {
         std::cout << "Position must be greater than 0\n";
         return false;
     }
     if (inputPos > bound)
-    {
-        std::cout << "Position out of bounds" << std::endl;
-        return false;
-    }
-    else
-    {
-        return true;
-    }
-}
-
-bool boundsCheck(int listSize, int inputPos) // Checks if given index is within the bounds of the list without indexing entire list
-{
-    if (inputPos < 0)
-    {
-        std::cout << "Position must be greater than 0\n";
-        return false;
-    }
-    if (inputPos > listSize)
     {
         std::cout << "Position out of bounds" << std::endl;
         return false;
