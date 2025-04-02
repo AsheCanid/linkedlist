@@ -41,6 +41,8 @@ int Node::listSize; // Compiler error fix
 
 
 // Node creation function declarations
+Node* newList();
+Node* newList(const char* input);
 void newHead(Node*& head, const char* val);
 void newEnd(Node*& head, const char* val);
 Node* newEndRet(Node*& head, const char* val);
@@ -76,6 +78,20 @@ void printFromEnd(Node* head);
 void printFromEndFast(Node* endNode);
 void printNode(Node* head, int pos);
 void printFullNodeInfo(Node* node);
+
+
+Node* newList() // Instantiates with empty string and returns its address
+{
+    Node* head = new Node();
+    return head;
+}
+
+Node* newList(const char* input) // Instantiates node with given string as data and returns its address
+{
+    Node* head = new Node(input);
+    return head;
+}
+
 void newHead(Node*& head, const char* val) // New starting Node insertion
 {
     Node* newNode = new Node(val);
@@ -91,7 +107,6 @@ void newHead(Node*& head, const char* val) // New starting Node insertion
     head = newNode; // redef new Node as start Node
 }
 
-
 void newEnd(Node*& head, const char* val) // New final Node insertion
 {
     Node* newNode = new Node(val);
@@ -102,7 +117,7 @@ void newEnd(Node*& head, const char* val) // New final Node insertion
         return;
     }
 
-    Node* temp = head;
+    Node* temp = head; // Iterator that allows accessing the final node
     while (temp->next != nullptr)
     {
         temp = temp->next;
@@ -133,7 +148,7 @@ Node* newEndRet(Node*& head, const char* val) // New final Node insertion and re
     return newNode;
 }
 
-void newNodeAtPos(Node*& head, int pos, const char* val) // Index starts at 1
+void newNodeAtPos(Node*& head, int pos, const char* val) // Index starts at 1, creates new node at given position
 {
     if (pos < 1)
     {
@@ -213,7 +228,7 @@ void deleteEnd(Node*& head) // Deletes and reassigns final node
     delete temp;
 }
 
-void deleteEndFast(Node*& endNode) // Same as delete end but directly accesses endnode
+void deleteEndFast(Node*& endNode) // Deletes ending node and reassigns without iteration
 {
     Node* temp = endNode;
     if (endNode == nullptr)
@@ -264,7 +279,7 @@ void deleteAtPos(Node*& head, int pos) // Deletes at given position
     delete temp;
 }
 
-void deleteAtPosReverse(Node*& endNode, int pos) // Deletes at position but indexes from final position
+void deleteAtPosReverse(Node*& endNode, int pos) // Deletes at position but reverse indexes from final position
 {
     int lSize = endNode->getSize();
     if (endNode == nullptr)
@@ -350,7 +365,7 @@ void printFromEndFast(Node* endNode) // Prints from reverse from end node direct
     std::cout << std::endl;
 }
 
-void printFullNodeInfo(Node* node)
+void printFullNodeInfo(Node* node) // Prints all data of a node at given position
 {
     std::cout << "Previous Node Address: " << node->prev << "    Node Data: " << node->data << "    Current Node Address: " << &node << "    Next Node Address: " << node->next << std::endl;
 }
@@ -374,7 +389,7 @@ void printNode(Node* head, int pos) // Print node value at position
     return;
 }
 
-void swapNode(Node* head, int swapPos1, int swapPos2) // Swaps data from 2 given nodes via position
+void swapNode(Node* head, int swapPos1, int swapPos2) // Swaps data from 2 given nodes via positions in list
 {
     const char* data1;
     const char* data2;
@@ -449,7 +464,7 @@ void findNode(Node* head, int pos) // Find node value at position
     return;
 }
 
-const char* findNodeDataRet(Node* head, int pos) // Find node value at position and returns value
+const char* findNodeDataRet(Node* head, int pos) // Find node value at position and returns value, returns NULL on failure
 {
     Node* temp = head;
     const char* val;
@@ -564,7 +579,7 @@ Node* getEnd(Node* head) // Finds end node and returns its address
     return endNode;
 }
 
-int getListSize(Node* head) // Iterates through and returns list size
+int getListSize(Node* head) // Gets size of list
 {
     return head->getSize();
 }
