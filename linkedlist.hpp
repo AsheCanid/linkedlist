@@ -1,35 +1,43 @@
 #include <iostream>
 #include <string>
 
+/*
+    All functions necessary for creating lists are found here
+    RECOMMENDED: find functions by declaration and then definition, if finding them from this file
+    Declarations are sorted, functions somewhat ordered by date of addition, complete mess
+    Function documentation is in the definition
+    Any function with end + fast REQUIRES end node* to function correctly, and head* is required for all others
+*/
+
 //Class Declaration + Definition
 class Node // Node def for a doubly linked list
 {
 private:
-    static int listSize;
+    static int listSize; // Stores the size of list, only modifiable via constructor/destructor
 
 public:
     Node* next; // Next item in list
     Node* prev; // Previous item in list
     const char* data; // String storage
-    Node()
+    Node() // Creates with empty string as no input has been provided, increments listSize
     {
         this->next = nullptr;
         this->prev = nullptr;
         this->data = "";
         listSize++;
     }
-    Node(const char* data)
+    Node(const char* data) // Creates with data value provided, increments listSize
     {
         this->data = data;
         this->next = nullptr;
         this->prev = nullptr;
         listSize++;
     }
-    ~Node()
+    ~Node() // Destroys and decrements listSize
     {
         listSize--;
     }
-    int getSize()
+    int getSize() // Gets and returns listSize
     {
         return listSize;
     }
@@ -48,7 +56,7 @@ void newEnd(Node*& head, const char* val);
 Node* newEndRet(Node*& head, const char* val);
 void newNodeAtPos(Node*& head, int pos, const char* val);
 
-// Node deletion functions declartation
+// Node deletion functions declaration
 void deleteHead(Node*& head);
 void deleteEnd(Node*& head);
 void deleteEndFast(Node*& endNode);
